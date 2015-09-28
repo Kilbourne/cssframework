@@ -94,6 +94,7 @@
 @import "tools.mixins";
 @import "bower_components/inuit-responsive-tools/tools.responsive";
 @import "tools.aliases";
+@import "_tools/tools.widths";
 
 
 
@@ -122,6 +123,13 @@
 @import "bower_components/inuit-lists/base.lists";
 @import "bower_components/inuit-images/base.images";
 @import "base.quotes";
+@import "_base/base.paragraphs";
+
+
+
+
+
+
 
 
 
@@ -130,6 +138,7 @@
 /**
  * #OBJECTS
  */
+ @import "_objects/objects.block";
 @import "objects.wrappers";
 
 $inuit-btn-background:      $color-btn;
@@ -151,7 +160,14 @@ $inuit-enable-flag--rev:        true;
 $inuit-enable-flag--responsive: true;
 $inuit-flag-collapse-at:        479px !default;
 @import "bower_components/inuit-flag/objects.flag";
+@import "_objects/objects.list-bare";
+@import "_objects/objects.list-block";
+@import "_objects/objects.list-inline";
 
+
+@import "_objects/objects.pack";
+@import "_objects/objects.tables";
+@import "_objects/objects.tabs";
 /**
  * Kinda hacky for now, but needs more testing before rolling back into main
  * flag object.
@@ -209,13 +225,23 @@ $inuit-enable-list-ui--small:   true;
  * #TRUMPS
  */
 @import "bower_components/inuit-clearfix/trumps.clearfix";
+@import "_trumps/trumps.headings";
+@import "_trumps/trumps.print";
 
 $inuit-use-fractions:   false;
 @import "bower_components/inuit-widths/trumps.widths";
+@import "_trumps/trumps.widths-responsive";
 @import "trumps.widths-responsive";
 
 $inuit-enable-margins:          true;
 $inuit-enable-margins--huge:    true;
 $inuit-enable-margins--none:    true;
 @import "bower_components/inuit-spacing/trumps.spacing";
+@import "_trumps/trumps.spacing-responsive";
 @import "trumps.show-hide";
+
+
+
+
+
+
