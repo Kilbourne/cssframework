@@ -1,0 +1,280 @@
+// Mixin to position an element absolutely *inside* the bounding box.
+// mixin
+@mixin cssowl-absolute-inside($width, $height, $valign:top, $halign:left, $xOffset:0, $yOffset:0) {
+  width: $width;
+  height: $height;
+  position: absolute;
+  @include cssowl-coords-inside($width, $height, $valign, $halign, $xOffset, $yOffset);
+}
+// Mixin to position an element absolutely *outside* the bounding box.
+// mixin
+@mixin cssowl-absolute-outside($width, $height, $valign:top, $halign:left, $xOffset:0, $yOffset:0) {
+  width: $width;
+  height: $height;
+  position: absolute;
+  @include cssowl-coords-outside($width, $height, $valign, $halign, $xOffset, $yOffset);
+}
+// Extendable placeholder and mixin to position an element absolutely.
+// extendable placeholder
+%cssowl-absolute {
+  position: absolute;
+}
+// mixin
+@mixin cssowl-absolute($coordinates:0 false false 0) {
+  @include cssowl-coords($coordinates);
+  position: absolute;
+}
+// Set an element's `top`, `right`, `bottom` and `left` properties to position it *inside* the bounding box.
+@mixin cssowl-coords-inside($width, $height, $valign:top, $halign:left, $xOffset:0, $yOffset:0) {
+  @if $valign == top {
+    top: $yOffset;
+  }
+  @else if $valign == middle {
+    top: 50%;
+    margin-top: $yOffset - round($height / 2);
+  }
+  @else if $valign == bottom {
+    bottom: $yOffset;
+  }
+  @if $halign == left {
+    left: $xOffset;
+  }
+  @else if $halign == center {
+    left: 50%;
+    margin-left: $xOffset - round($width / 2);
+  }
+  @else if $halign == right {
+    right: $xOffset;
+  }
+}
+// Set an element's `top`, `right`, `bottom` and `left` properties to position it *outside* the bounding box.
+@mixin cssowl-coords-outside($width, $height, $valign:top, $halign:left, $xOffset:0, $yOffset:0) {
+  @if $valign == top {
+    top: round($yOffset - $height);
+  }
+  @else if $valign == middle {
+    top: 50%;
+    margin-top: $yOffset - round($height / 2);
+  }
+  @else if $valign == bottom {
+    bottom: round($yOffset - $height);
+  }
+  @if $halign == left {
+    left: round($xOffset - $width);
+  }
+  @else if $halign == center {
+    left: 50%;
+    margin-left: $xOffset - round($width / 2);
+  }
+  @else if $halign == right {
+    right: round($xOffset - $width);
+  }
+}
+// Set an element's `top`, `right`, `bottom` and `left` properties.
+@mixin cssowl-coords($coords:0 false false 0) {
+  $top: nth($coords, 1);
+  $right: nth($coords, 2);
+  $bottom: nth($coords, 3);
+  $left: nth($coords, 4);
+  @if $top != false {
+    top: $top;
+  }
+  @if $left != false {
+    left: $left;
+  }
+  @if $right != false {
+    right: $right;
+  }
+  @if $bottom != false {
+    bottom: $bottom;
+  }
+}
+// Mixin to add content with the `:after` pseudo selector and position it absolutely *inside* the bounding box.
+@mixin cssowl-after-absolute-inside($content, $width, $height, $valign:top, $halign:left, $xOffset:0, $yOffset:0) {
+  position: relative;
+  &:after {
+    content: $content;
+    @include cssowl-absolute-inside($width, $height, $valign, $halign, $xOffset, $yOffset);
+  }
+}
+// Mixin to add content with the `:after` pseudo selector and position it absolutely *outside* the bounding box.
+@mixin cssowl-after-absolute-outside($content, $width, $height, $valign:top, $halign:left, $xOffset:0, $yOffset:0) {
+  position: relative;
+  &:after {
+    content: $content;
+    @include cssowl-absolute-outside($width, $height, $valign, $halign, $xOffset, $yOffset);
+  }
+}
+// Mixin to add content with the `:after` pseudo selector and position it absolutely.
+// mixin
+@mixin cssowl-after-absolute($content, $coordinates:0 false false 0) {
+  position: relative;
+  &:after {
+    content: $content;
+    @include cssowl-absolute($coordinates);
+  }
+}
+// Mixin to add content with the `:after` pseudo selector and position it with `float: $float`.
+// mixin
+@mixin cssowl-after-float($content, $margin:0 0 0 0, $float:right) {
+  &:after {
+    float: $float;
+    margin: $margin;
+    content: $content;
+  }
+}
+// Mixin to add content with the `:before` pseudo selector and position it absolutely *inside* the bounding box.
+@mixin cssowl-before-absolute-inside($content, $width, $height, $valign:top, $halign:left, $xOffset:0, $yOffset:0) {
+  position: relative;
+  &:before {
+    content: $content;
+    @include cssowl-absolute-inside($width, $height, $valign, $halign, $xOffset, $yOffset);
+  }
+}
+// Mixin to add content with the `:before` pseudo selector and position it absolutely *outside* the bounding box.
+@mixin cssowl-before-absolute-outside($content, $width, $height, $valign:top, $halign:left, $xOffset:0, $yOffset:0) {
+  position: relative;
+  &:before {
+    content: $content;
+    @include cssowl-absolute-outside($width, $height, $valign, $halign, $xOffset, $yOffset);
+  }
+}
+// Mixin to add content with the `:before` pseudo selector and position it absolutely.
+// mixin
+@mixin cssowl-before-absolute($content, $coordinates:0 false false 0) {
+  position: relative;
+  &:before {
+    content: $content;
+    @include cssowl-absolute($coordinates);
+  }
+}
+// Mixin to add content with the `:before` pseudo selector and position it with `float: $float`.
+// mixin
+@mixin cssowl-before-float($content, $margin:0 0 0 0, $float:left) {
+  &:before {
+    float: $float;
+    margin: $margin;
+    content: $content;
+  }
+}
+// Extendable placeholder and mixin to position an element relatively.
+// extendable placeholder
+%cssowl-relative {
+  position: relative;
+}
+// mixin
+@mixin cssowl-relative($coordinates:0 false false 0) {
+  @include cssowl-coords($coordinates);
+  position: relative;
+}
+// Place a sprite element with `position: absolute;` *inside* the bounding box.
+@mixin cssowl-sprite-absolute-inside($element, $valign:top, $halign:left, $xOffset:0, $yOffset:0) {
+  @include cssowl-absolute-inside(nth($element, 3), nth($element, 4), $valign, $halign, $xOffset, $yOffset);
+  @extend %#{nth($element, 5)};
+}
+// Place a sprite element with `position: absolute;` *outside* the bounding box.
+@mixin cssowl-sprite-absolute-outside($element, $valign:top, $halign:left, $xOffset:0, $yOffset:0) {
+  @include cssowl-absolute-outside(nth($element, 3), nth($element, 4), $valign, $halign, $xOffset, $yOffset);
+  @extend %#{nth($element, 5)};
+}
+// Place a sprite element with `position: absolute;`.
+@mixin cssowl-sprite-absolute($element, $coordinates:0 false false 0) {
+  @include cssowl-absolute($coordinates);
+  @extend %#{nth($element, 5)};
+}
+// Add a sprite element with the `:after` pseudo selector and place it absolutely *inside* the bounding box.
+@mixin cssowl-sprite-after-absolute-inside($element, $valign:top, $halign:left, $xOffset:0, $yOffset:0) {
+  @include cssowl-after-absolute-inside("", nth($element, 3), nth($element, 4), $valign, $halign, $xOffset, $yOffset);
+  &:after {
+    @extend %#{nth($element, 5)};
+  }
+}
+// Add a sprite element with the `:after` pseudo selector and place it absolutely *outside* the bounding box.
+@mixin cssowl-sprite-after-absolute-outside($element, $valign:top, $halign:left, $xOffset:0, $yOffset:0, $float:left) {
+  @include cssowl-after-absolute-outside("", nth($element, 3), nth($element, 4), $valign, $halign, $xOffset, $yOffset);
+  &:after {
+    @extend %#{nth($element, 5)};
+  }
+}
+// Add a sprite element with the `:after` pseudo selector and place it absolutely.
+@mixin cssowl-sprite-after-absolute($element, $coordinates:0 false false 0) {
+  @include cssowl-after-absolute("", $coordinates);
+  &:after {
+    @extend %#{nth($element, 5)};
+  }
+}
+// Add a sprite element with the `:after` pseudo selector and place it with the `float` attribute.
+@mixin cssowl-sprite-after-float($element, $margin:0 0 0 0, $float:right) {
+  @include cssowl-after-float("", $margin, $float);
+  &:after {
+    @extend %#{nth($element, 5)};
+  }
+}
+// Add a sprite element with the `:after` pseudo selector.
+@mixin cssowl-sprite-after($element, $margin:0 0 0 0, $display:inline-block) {
+  &:after {
+    content: "";
+    margin: $margin;
+    display: $display;
+    @extend %#{nth($element, 5)};
+  }
+}
+// Add a sprite element with the `:before` pseudo selector and place it absolutely *inside* the bounding box.
+@mixin cssowl-sprite-before-absolute-inside($element, $valign:top, $halign:left, $xOffset:0, $yOffset:0) {
+  @include cssowl-before-absolute-inside("", nth($element, 3), nth($element, 4), $valign, $halign, $xOffset, $yOffset);
+  &:before {
+    @extend %#{nth($element, 5)};
+  }
+}
+// Add a sprite element with the `:before` pseudo selector and place it absolutely *outside* the bounding box.
+@mixin cssowl-sprite-before-absolute-outside($element, $valign:top, $halign:left, $xOffset:0, $yOffset:0, $float:left) {
+  @include cssowl-before-absolute-outside("", nth($element, 3), nth($element, 4), $valign, $halign, $xOffset, $yOffset);
+  &:before {
+    @extend %#{nth($element, 5)};
+  }
+}
+// Add a sprite element with the `:before` pseudo selector and place it absolutely.
+@mixin cssowl-sprite-before-absolute($element, $coordinates:0 false false 0) {
+  @include cssowl-before-absolute("", $coordinates);
+  &:before {
+    @extend %#{nth($element, 5)};
+  }
+}
+// Add a sprite element with the `:before` pseudo selector and place it with the `float` attribute.
+@mixin cssowl-sprite-before-float($element, $margin:0 0 0 0, $float:left) {
+  @include cssowl-before-float("", $margin, $float);
+  &:before {
+    @extend %#{nth($element, 5)};
+  }
+}
+// Add a sprite element with the `:before` pseudo selector.
+@mixin cssowl-sprite-before($element, $margin:0 0 0 0, $display:inline-block) {
+  &:before {
+    content: "";
+    margin: $margin;
+    display: $display;
+    @extend %#{nth($element, 5)};
+  }
+}
+// Add a sprite element with its `width`, `height`, `background-image` and `background-position`.
+@mixin cssowl-sprite-display($element, $display:inline-block) {
+  display: $display;
+  @extend %#{nth($element, 5)};
+}
+// Add a sprite element and hide the element's content.
+@mixin cssowl-sprite-replace($element) {
+  @extend %cssowl-text-hide;
+  @extend %#{nth($element, 5)};
+}
+// Extendable placeholder and mixin to hide an element's content.
+// mixin
+@mixin cssowl-text-hide() {
+  overflow: hidden;
+  text-indent: 1000%;
+  white-space: nowrap;
+  display: inline-block;
+}
+// extendable placeholder
+%cssowl-text-hide {
+  @include cssowl-text-hide();
+}
